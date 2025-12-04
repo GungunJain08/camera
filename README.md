@@ -72,4 +72,14 @@ After a successful upload to S3, save the photo's metadata (like the S3 key, loc
 -   Retrieve the photo data (with locations) from your local Room database or from DynamoDB.
 -   For each photo, add a marker to the Google Map at its latitude and longitude.
 
+## 8. Add Location Watermark on Photo (New)
+
+This process involves drawing the location details directly onto the image before saving it.
+
+-   **Capture to Memory:** Modify the `capturePhoto` function to capture the image into memory as a `Bitmap` instead of saving it directly to a file. This is done using `ImageCapture.OnImageCapturedCallback`.
+-   **Get Address from Location (Reverse Geocoding):** Use Android's `Geocoder` class to convert the numeric `(latitude, longitude)` into a human-readable address (e.g., "Muradnagar, Uttar Pradesh").
+-   **Create a Drawing Canvas:** Create a `Canvas` object from the captured `Bitmap`. This canvas will act as a drawing board on top of the photo.
+-   **Draw Text on Canvas:** Use a `Paint` object to define the text style (color, size, font). Use `canvas.drawText()` to write the address, coordinates, and timestamp onto the `Bitmap`.
+-   **Save the Final Image:** Once all the drawing is complete, save the modified `Bitmap` to the phone's gallery using a `FileOutputStream`.
+
 This provides a high-level overview of the implementation. Each step involves more detailed code which you can write based on this guide.
